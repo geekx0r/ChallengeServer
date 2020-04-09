@@ -5,7 +5,7 @@ from ChallengeClient import challengeinterface
 #############################################################
 #read in real word file and make it a list
 f = open('WordList.txt')
-realwords = f.read().splitlines()
+realwords = set(f.read().splitlines())
 f.close()
 
 #protocol constants (ie. responses we will get)
@@ -103,18 +103,18 @@ if __name__ == "__main__":
             if (q in answers):
                 a = answers[q]
             else:
-                a = realwords[206]
+                a = "SPLINE"
 
             print('>>>SEND:  ', a)
             result = challenge.submit_answer(a)
             print(result)
 
-            if (result.find(C_STARTOVER_PRE) >= 0):
+            if (C_STARTOVER_PRE in result):
                 break
-            elif (result.find(C_FLAG) >= 0):
+            elif (C_FLAG in result):
                 won = True
                 break
-            elif (result[0:len(C_RESPONSE_WRONG_PRE)] == C_RESPONSE_WRONG_PRE):
+            elif (C_RESPONSE_WRONG_PRE in result):
                 # if it was wrong, store right answer
                 answers[q] = select_answer(result)
 
