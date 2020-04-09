@@ -1,5 +1,4 @@
 from ChallengeClient import challengeinterface
-import re
 
 #############################################################
 # Function declarations
