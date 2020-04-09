@@ -3,6 +3,10 @@ from ChallengeClient import challengeinterface
 #############################################################
 # Function declarations
 #############################################################
+# read in real word file and make it a list
+with open('wordlist.txt') as f:
+    realwords = set(f.read().splitlines())
+
 #rot-n function
 def rot_n(n, msg):
     decoded = ''
@@ -47,7 +51,6 @@ def solve_problem(problemtext, realwords):
     # make answer into a string
     return ' '.join(answer)
 
-
 #############################################################
 # Main code starts here
 if __name__ == "__main__":
@@ -67,10 +70,6 @@ if __name__ == "__main__":
     problemtext = select_rline(challengetext, 2)
     print('\nProblem Text is:\n' + problemtext)
 
-    # read in real word file and make it a list
-    with open('wordlist.txt') as f:
-        realwords = f.read().splitlines()
-
     # we have to answer 50 different questions :o
     correct = 0
     while (correct < 50):
@@ -85,7 +84,7 @@ if __name__ == "__main__":
         print('\n Result is:\n', result)
 
         lines = result.rsplit("\n")
-        if (lines[0] == "Correct!" or lines[0].startswith("Here is your flag")):
+        if ("Correct!" in result or "Here is your flag" in result):
             correct += 1
         problemtext = select_rline(result, 2)
 
